@@ -97,8 +97,8 @@ class UserController extends Controller
 
     public function showProfile() 
     {
-        $user = Auth::user();
-        $member = User::find($user['id'])->member;
+        $user = Auth::user();        
+        $member = User::find($user->id)->member;
 
         return view('users.profile')->with('user', $user)->with('member', $member);
     }
