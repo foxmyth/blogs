@@ -14,9 +14,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        if(!Auth::check()) {
-            return redirect()->action('HomeController@index');
-        }
+        parent::__construct();
     }
 
     /**
@@ -81,7 +79,10 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $member = User::find($id)->member;
+
+        return view('users.profile')->with('user', $user)->with('member', $member);
     }
 
     /**
@@ -97,7 +98,12 @@ class UserController extends Controller
 
     public function showProfile() 
     {
-        $user = Auth::user();        
+        $user = Auth::user();
+
+        if(empty($user)) {
+            return redirect()->action('HomeController@index');
+        } 
+
         $member = User::find($user->id)->member;
 
         return view('users.profile')->with('user', $user)->with('member', $member);

@@ -24,5 +24,7 @@ Route::get('logout', 'HomeController@logout');
 Route::group(['namespace' => 'Admin'], function() {
 	Route::group(['prefix' => 'profile'], function() {
 		Route::get('/', 'UserController@showProfile');
+
+		Route::match(['get', 'put'], '/{id}', 'UserController@update');		
 	});	
 });

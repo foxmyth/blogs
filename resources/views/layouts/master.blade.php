@@ -17,14 +17,14 @@
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/flexslider.css') }}">
 	@endif
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>	
+	<script type="text/javascript" src="{{ URL::asset('assets/js/customize.js') }}"></script>
 
 	<style type="text/css">
       body {
         padding-top: 60px;
       }
     </style>
-
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -40,37 +40,7 @@
   	<!-- Google Fonts call. Font Used Open Sans & Raleway -->
 	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
   	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-
-	<script type="text/javascript">
-		$(document).ready(function () {
-
-		    $("#btn-blog-next").click(function () {
-		      $('#blogCarousel').carousel('next')
-		    });
-		     $("#btn-blog-prev").click(function () {
-		      $('#blogCarousel').carousel('prev')
-		    });
-
-		     $("#btn-client-next").click(function () {
-		      $('#clientCarousel').carousel('next')
-		    });
-		     $("#btn-client-prev").click(function () {
-		      $('#clientCarousel').carousel('prev')
-		    });
-		    
-		});
-
-		 $(window).load(function(){
-
-		    $('.flexslider').flexslider({
-		        animation: "slide",
-		        slideshow: true,
-		        start: function(slider){
-		          $('body').removeClass('loading');
-		        }
-		    });  
-		});
-	</script>  	
+	
 </head>
 <body>
 	<!-- Navigation Menu -->
@@ -105,6 +75,6 @@
 
 	@yield('content')
 
-	<script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.js') }}"></script>
+	<script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.js') }}"></script>	
 </body>
 </html>

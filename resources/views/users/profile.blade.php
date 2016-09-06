@@ -40,12 +40,12 @@
 					</div>
 					<br />
 					<div class="info-user2">
-						<span aria-hidden="true" class="li_user fs1"></span>
-						<span aria-hidden="true" class="li_settings fs1"></span>
-						<span aria-hidden="true" class="li_mail fs1"></span>
-						<span aria-hidden="true" class="li_key fs1"></span>
-						<span aria-hidden="true" class="li_lock fs1"></span>
-						<span aria-hidden="true" class="li_pen fs1"></span>
+						{{-- <span aria-hidden="true" class="li_user fs1"></span> --}}
+						<span aria-hidden="true" class="li_settings fs1" id="show-profile"></span>
+						<span aria-hidden="true" class="li_mail fs1" id="show-mail"></span>
+						{{-- <span aria-hidden="true" class="li_key fs1"></span> --}}
+						{{-- <span aria-hidden="true" class="li_lock fs1"></span> --}}
+						{{-- <span aria-hidden="true" class="li_pen fs1"></span> --}}
 					</div>
 					{{-- end: choose option --}}
 				</div>
@@ -56,6 +56,19 @@
 		{{-- start: any area --}}
 		<div class="col-sm-6 col-lg-6">
 			<div id="register-wraper">
+				{{-- start: sub panel --}}
+				<div id="register-default">
+					PHPGirls
+				</div>
+				{{-- profile update --}}
+				<div id="register-profile">
+					@include("layouts.forms.profile")
+				</div>
+				{{-- send contact mail --}}
+				<div id="register-mail">
+					mail form
+				</div>
+				{{-- end: sub panel --}}
 			</div>
 		</div>
 		{{-- end: any area --}}
