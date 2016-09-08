@@ -371,6 +371,13 @@ img {
   border-radius: 50%;
 }
 
+.img-size-200x200 {
+  height: auto;
+  width: auto;
+  max-height: 200px;
+  max-width: 200px;
+}
+
 hr {
   margin-top: 20px;
   margin-bottom: 20px;

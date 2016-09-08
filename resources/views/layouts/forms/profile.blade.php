@@ -1,12 +1,12 @@
-{!! Form::open(['action' => ['Admin\UserController@update', $user->id], 'id' => 'register-form', 'class' => 'form']) !!}
+{!! Form::open(['action' => ['Admin\UserController@update', $user->id], 'id' => 'register-form', 'class' => 'form', 'files' => true, 'method' => 'put']) !!}
 	<div class="body">
 		<legend>Profile</legend>
-		<div class="thumbnail" >		
-			<img src="{{ URL::asset('assets/img/face.jpg') }}" />			
+		<div class="thumbnail">
+			<img src="{{ $member->profile }}" id="profile-img" calss="img-size-200x200"/>
 		</div>
 		<br />
 		{{-- profile photo --}}
-		{!! Form::file('profile', ['class' => 'input-huge']) !!}
+		{!! Form::file('profile', ['class' => 'input-huge', 'id' => 'profile']) !!}
 		
 		{{-- user name --}}
 		{!! Form::label('name', 'Username') !!}

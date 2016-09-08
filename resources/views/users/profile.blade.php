@@ -8,27 +8,25 @@
 			<div class="register-info-wraper">
 				<div id="register-info">
 					<div class="cont2">
-						<div class="thumbnail">
-							<img src="{{ URL::asset('assets/img/face.jpg') }}" alt="{{ $user->name }}" class="img-circle">
+						<div class="thumbnail">							
+							<img src="{{ $member->profile }}" alt="{{ $user->name }}" class="img-circle img-size-200x200" />
 						</div>
 						<h2>{{ $user->name }}</h2>
 					</div>
 					{{-- start: inner row --}}
 					<div class="row">
-						<div class="col-lg-3">
+						<div class="col-lg-5">
 							<div class="cont3">
-								<p><ok>Username:</ok> {{ $user->name }}</p>
-								<p><ok>Mail:</ok> {{ $user->email }}</p>
-								<p><ok>Location:</ok> </p>
-								<p><ok>Address:</ok> </p>
+								<p><ok>Username</ok><br /> {{ $user->name }}</p>
+								<p><ok>Mail</ok><br /> {{ $user->email }}</p>
+								<p><ok>Location</ok><br /> {{ $member->location }}</p>								
 							</div>
 						</div>
-						<div class="col-lg-3">
+						<div class="col-lg-5">
 							<div class="cont3">
-								<p><ok>Registered:</ok> {{ $user->created_at->format('F d, Y') }}</p>
-								<p><ok>Last login:</ok> </p>
-								<p><ok>Phone:</ok> </p>
-								<p><ok>Mobile</ok> </p>
+								<p><ok>Registered</ok><br /> {{ $user->created_at->format('F d, Y') }}</p>
+								<p><ok>Last login</ok> </p>
+								<p><ok>Mobile</ok><br /> {{ $member->mobile }}</p>
 							</div>
 						</div>
 					</div>
@@ -42,9 +40,9 @@
 					<div class="info-user2">
 						{{-- <span aria-hidden="true" class="li_user fs1"></span> --}}
 						<span aria-hidden="true" class="li_settings fs1" id="show-profile"></span>
-						<span aria-hidden="true" class="li_mail fs1" id="show-mail"></span>
-						{{-- <span aria-hidden="true" class="li_key fs1"></span> --}}
-						{{-- <span aria-hidden="true" class="li_lock fs1"></span> --}}
+						{{-- <span aria-hidden="true" class="li_mail fs1" id="show-mail"></span> --}}
+						<span aria-hidden="true" class="li_key fs1"></span>
+						<span aria-hidden="true" class="li_lock fs1"></span>
 						{{-- <span aria-hidden="true" class="li_pen fs1"></span> --}}
 					</div>
 					{{-- end: choose option --}}
@@ -58,7 +56,11 @@
 			<div id="register-wraper">
 				{{-- start: sub panel --}}
 				<div id="register-default">
-					PHPGirls
+					@if (isset($error)) 
+						{{ $error }}
+					@elseif (session('status'))
+						{{ session('status') }}
+					@endif
 				</div>
 				{{-- profile update --}}
 				<div id="register-profile">

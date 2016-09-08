@@ -7,11 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-use App\User as User;
+use App\User    as User;
+use App\Member  as Member;
 
 class UserController extends Controller
 {
+    protected $profile_path = 'profiles/';
+
     public function __construct()
     {
         parent::__construct();
@@ -79,10 +83,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Selected User's information on Database.
         $user = User::find($id);
-        $member = User::find($id)->member;
 
-        return view('users.profile')->with('user', $user)->with('member', $member);
+        // File upload
+        $path = $this->uploadProfileImage($id, $request->file('profile'));
+
+        $user->name = $request->name;
+        
+        $member = $user->member;
+
+        $member->profile    = $path;
+        $member->location   = $request->location;
+        $member->mobile     = $request->mobile;
+
+        try {
+            $user->save();
+            $member->save();
+            
+        } catch (Exception $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+
+        return redirect('profile')->with('status', 'Profile updated');
     }
 
     /**
@@ -96,6 +119,11 @@ class UserController extends Controller
         //
     }
 
+    /**
+     * Get profile information from storage.
+     * 
+     * @return Response
+     */
     public function showProfile() 
     {
         $user = Auth::user();
@@ -107,5 +135,29 @@ class UserController extends Controller
         $member = User::find($user->id)->member;
 
         return view('users.profile')->with('user', $user)->with('member', $member);
+    }
+
+    /**
+     * Upload user's profile image.
+     * base path is "storage/app/profiles/"
+     * 
+     * @param  integer $id        user id 
+     * @param  array   $profile   user's profile informations
+     * @return string  $path      file path 
+     */
+    private function uploadProfileImage($id, $profile) 
+    {
+        $path = null;
+
+        //if profile's information for uploaded is empty, file's path is null
+        if(empty($profile)) return $path;
+
+        //if profile's information of saved is exist, delete the information.
+        $member = Member::where('user_id', $id)->first();
+        empty($member->profile)? : Storage::delete($member->profile);
+
+        $filename = str_pad($id, 5, '0', STR_PAD_LEFT).'.'.$profile->extension();
+
+        return $profile->storeAs('profiles', $filename);
     }
 }

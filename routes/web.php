@@ -25,6 +25,15 @@ Route::group(['namespace' => 'Admin'], function() {
 	Route::group(['prefix' => 'profile'], function() {
 		Route::get('/', 'UserController@showProfile');
 
-		Route::match(['get', 'put'], '/{id}', 'UserController@update');		
+		Route::match(['put', 'post'], '/{id}', 'UserController@update');		
 	});	
+});
+
+Route::get('profiles/{image}', function($image) {
+	$path = storage_path().'/app/profiles/'.$image;
+	
+	$file = Storage::get('profiles/'.$image);
+	$mimetype = Storage::mimeType('profiles/'.$image);
+
+	return response($file, 200)->header('Content-Type', $mimetype);
 });
