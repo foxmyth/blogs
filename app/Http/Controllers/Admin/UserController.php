@@ -14,21 +14,26 @@ use App\Member  as Member;
 
 class UserController extends Controller
 {
-    protected $profile_path = 'profiles/';
+    protected $model;
+    protected $profile_path = 'profiles/';    
 
     public function __construct()
     {
+        $this->model = new User;
         parent::__construct();
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the User
      *
      * @return Response
      */
     public function index()
     {
-        
+        // list for all user ordered by admin type
+        $users = $this->model->listUserOrderByAdminType();
+
+        return view('members.index')->with('users', $users);
     }
 
     /**
@@ -84,23 +89,22 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         // Selected User's information on Database.
-        $user = User::find($id);
+        $user = $this->model->find($id);
 
         // File upload
         $path = $this->uploadProfileImage($id, $request->file('profile'));
 
-        $user->name = $request->name;
-        
+        // update User And Member's information 
+        $user->name = $request->name;        
         $member = $user->member;
 
-        $member->profile    = $path;
+        if(!empty($path)) $member->profile = $path;
         $member->location   = $request->location;
         $member->mobile     = $request->mobile;
 
         try {
             $user->save();
-            $member->save();
-            
+            $member->save();            
         } catch (Exception $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
@@ -132,7 +136,7 @@ class UserController extends Controller
             return redirect()->action('HomeController@index');
         } 
 
-        $member = User::find($user->id)->member;
+        $member = $this->model->find($user->id)->member;
 
         return view('users.profile')->with('user', $user)->with('member', $member);
     }

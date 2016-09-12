@@ -62,7 +62,7 @@
 	              <li><a href="tables.html"><i class="icon-th icon-white"></i> Tables</a></li>
 	              <li class="active"><a href="login.html"><i class="icon-lock icon-white"></i> Login</a></li> --}}
 	              <li><a href="{{ url('/profile') }}"><i class="icon-user icon-white"></i> Profile</a></li>
-				  <li><a href="#"><i class="icon-user icon-white"></i> Members</a></li>
+				  <li><a href="{{ url('/members') }}"><i class="icon-user icon-white"></i> Members</a></li>
 				  @if(Auth::check())
 	            	<li><a href="{{ url('/logout') }}">Logout</a></li>
 	              @endif

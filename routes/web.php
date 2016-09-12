@@ -19,16 +19,32 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-Route::get('logout', 'HomeController@logout');
+Route::get('/logout', 'HomeController@logout');
 
 Route::group(['namespace' => 'Admin'], function() {
+	//profile
 	Route::group(['prefix' => 'profile'], function() {
-		Route::get('/', 'UserController@showProfile');
 
-		Route::match(['put', 'post'], '/{id}', 'UserController@update');		
+		Route::get('/', 'UserController@showProfile');
+		Route::match(['put', 'post'], '/{id}', 'UserController@update');
 	});	
+	//members
+	Route::group(['prefix' => 'members'], function() {
+		Route::get('/', 'UserController@index');
+		Route::get('/create', 'UserController@create');
+		Route::get('/{id}', 'UserController@edit');
+	});
 });
 
+// password reset 
+Route::group(['prefix' => 'password'], function() {
+	Route::get('/reset/{token?}', 'Auth\PasswordController@showResetForm');
+	Route::post('/reset', 'Auth\PasswordController@reset');
+	Route::post('/email', 'Auth\PasswordController@sendResetLinkEmail');
+
+});
+
+// preview image
 Route::get('profiles/{image}', function($image) {
 	$path = storage_path().'/app/profiles/'.$image;
 	

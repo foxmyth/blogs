@@ -9,7 +9,7 @@
 				<div id="register-info">
 					<div class="cont2">
 						<div class="thumbnail">							
-							<img src="{{ $member->profile }}" alt="{{ $user->name }}" class="img-circle img-size-200x200" />
+							<img src="{{ !empty($member->profile)? $member->profile: 'profiles/not_found.png' }}" alt="{{ $user->name }}" class="img-circle img-size-200x200" />
 						</div>
 						<h2>{{ $user->name }}</h2>
 					</div>
@@ -37,13 +37,11 @@
 						<h2>Choose Your Option</h2>
 					</div>
 					<br />
-					<div class="info-user2">
-						{{-- <span aria-hidden="true" class="li_user fs1"></span> --}}
+					<div class="info-user2">						
 						<span aria-hidden="true" class="li_settings fs1" id="show-profile"></span>
-						{{-- <span aria-hidden="true" class="li_mail fs1" id="show-mail"></span> --}}
-						<span aria-hidden="true" class="li_key fs1"></span>
-						<span aria-hidden="true" class="li_lock fs1"></span>
-						{{-- <span aria-hidden="true" class="li_pen fs1"></span> --}}
+						@if ($member->is_active == "L")
+							<span aria-hidden="true" class="li_lock fs1"></span>
+						@endif
 					</div>
 					{{-- end: choose option --}}
 				</div>

@@ -2,7 +2,7 @@
 	<div class="body">
 		<legend>Profile</legend>
 		<div class="thumbnail">
-			<img src="{{ $member->profile }}" id="profile-img" calss="img-size-200x200"/>
+			<img src="{{ !empty($member->profile)? $member->profile: 'profiles/not_found.png' }}" id="profile-img" calss="img-size-200x200"/>
 		</div>
 		<br />
 		{{-- profile photo --}}
