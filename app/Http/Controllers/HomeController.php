@@ -35,7 +35,8 @@ class HomeController extends Controller
 
     /**
      * Logout 
-     * @return [type] [description]
+     * 
+     * @return Response
      */
     public function logout()
     {

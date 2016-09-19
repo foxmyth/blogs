@@ -38,9 +38,11 @@ Route::group(['namespace' => 'Admin'], function() {
 
 // password reset 
 Route::group(['prefix' => 'password'], function() {
-	Route::get('/reset/{token?}', 'Auth\PasswordController@showResetForm');
-	Route::post('/reset', 'Auth\PasswordController@reset');
-	Route::post('/email', 'Auth\PasswordController@sendResetLinkEmail');
+	Route::get('/reset/{token?}', 'Auth\PasswordController@getReset');
+	Route::post('/reset', 'Auth\PasswordController@postReset');
+
+	Route::get('/email', 'Auth\PasswordController@getEmail');
+	Route::post('/email', 'Auth\PasswordController@postEmail');
 
 });
 
